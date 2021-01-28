@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Alexandra Pshebitkovskaya](https://up.htmlacademy.ru/javascript/22/user/870593).
-* Наставник: `Алёна Сиприкова`.
+* Наставник: [Алёна Сиприкова] (https://up.htmlacademy.ru/javascript/22/user/549115).
 
 ---
 

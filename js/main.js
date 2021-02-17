@@ -1,19 +1,20 @@
+// Константы
 const TITLES = [
-  'La petite maison des Buttes Chaumont',
-  'Double/Twin Room, close to Opera and the Louvre',
-  'Belle chambre en plein cœur de Paris',
-  'Joli petit studio République',
-  'Luxury Apartment Heart of Paris Bail Mobilité',
-  'NEW Studio Rénové Calme Et Cosy',
+  'Новый дизайнерская уютная комната возле Асакуса',
+  'Современные апартаменты в японском стиле',
+  'Кварира в Синдзюку',
+  'Лофт рядом с ж/д вокзалом',
+  'Дом в японском стиле рядом с Акихабара',
+  'Tokyo Oshiage Вилла',
 ];
 
 const DESCRIPTIONS = [
-  'Une petit maison au fond d\'une cour très calme à deux pas du parc des buttes Chaumont.',
-  'The Daunou Opera enjoys a prestigious location in the heart of the right bank of Paris.',
-  'L\'appartement est situé à quelle mètre de la gare de l\'est dans le 10e arrondissement de paris.',
-  'Situé à quelques mètres de la place de la République et au bord du Marais, cet appartement est idéalement situé!',
-  'Stay in a architect designed apartment located in one of the most prestigious address in the heart of Paris.',
-  'Situé dans un lieu calme et résidentiel, proche du quartier de Montparnasse',
+  'Комната со свежим ремонтом и простым дизайном.',
+  'Почувствуйте себя в японско-токийской квартире.',
+  'Мой дом расположен в Синдзюку, центре Токио, отличном месте для осмотра достопримечательностей и покупок.',
+  'Лофт расположен в знаменитом туристическом месте Кагуразака.',
+  'Дом удобно расположен в районе Таито, недалеко от многих достопримечательностей.',
+  'Вилла расположена менее, чем в 30 минутах от популярных районов центральной части Токио.',
 ];
 
 const TYPES = [
@@ -46,12 +47,12 @@ const PHOTOS = [
 
 const AVATARS_MIN = 1;
 const AVATARS_MAX = 8;
-const MIN_PRICE = 1000;
-const MAX_PRICE = 100000;
+const MIN_PRICE = 0;
+const MAX_PRICE = 1000000;
 const MIN_ROOMS = 1;
-const MAX_ROOMS = 10;
+const MAX_ROOMS = 100;
 const MIN_GUESTS = 1;
-const MAX_GUESTS = 30;
+const MAX_GUESTS = 100;
 const X_COORDINATE_MIN = 35.65000;
 const X_COORDINATE_MAX = 35.70000;
 const Y_COORDINATE_MIN = 139.70000;
@@ -68,6 +69,7 @@ const getRandomNumber = function (min, max) {
   throw new Error('Firt value cannot be less than zero and bigger than first');
 }
 
+// Случайное целое число из диапазона включительно
 const getRandomInteger = function (min, max) {
   const randomNumber = getRandomNumber(min, max);
   return randomNumber ? Math.floor(randomNumber) : null;
@@ -80,11 +82,12 @@ const getCoordinate = function(min, max, digits) {
   return coordinate ? +coordinate.toFixed(digits) : null;
 }
 
-// Случайный элемнт массива
+// Случайный элемент массива
 const getRandomArrayElement = function (elements) {
   return elements[getRandomInteger(0, elements.length - 1)];
 };
 
+// Получаем х и у координаты
 const getCoordinates = function () {
   return {
     X: getCoordinate(X_COORDINATE_MIN, X_COORDINATE_MAX, COORDINATE_DIGITS),
@@ -117,3 +120,5 @@ const createAdd = function () {
 
 // Создаем массив
 const createAdds = new Array(ADDS_COUNT).fill(null).map(() => createAdd());
+
+createAdds();

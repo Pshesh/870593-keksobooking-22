@@ -62,25 +62,29 @@ const ADDS_COUNT = 10;
 
 //Случайное число из диапазона включительно
 const getRandomNumber = function (min, max) {
-  if (min > 0 && min < max) {
-    const result = Math.random() * (max - min + 1) + min;
-    return result > max ? max : result;
+  // if (min > 0 && min < max) {
+  //   const result = Math.random() * (max - min + 1) + min;
+  //   return result > max ? max : result;
+  // }
+  // throw new Error('Firt value cannot be less than zero and bigger than first');
+  if (min < 0 && min > max) {
+    throw new Error('Firt value cannot be less than zero and bigger than first');
   }
-  throw new Error('Firt value cannot be less than zero and bigger than first');
-}
+  const result = Math.random() * (max - min + 1) + min;
+  return result > max ? max : result;
+};
 
 // Случайное целое число из диапазона включительно
 const getRandomInteger = function (min, max) {
   const randomNumber = getRandomNumber(min, max);
   return randomNumber ? Math.floor(randomNumber) : null;
-}
+};
 
 // Случайное число с плавающей запятой из диапазона включительно
-// eslint-disable-next-line no-unused-vars
-const getCoordinate = function(min, max, digits) {
+const getCoordinate = function (min, max, digits) {
   const coordinate = getRandomNumber(min, max);
   return coordinate ? +coordinate.toFixed(digits) : null;
-}
+};
 
 // Случайный элемент массива
 const getRandomArrayElement = function (elements) {
@@ -92,33 +96,52 @@ const getCoordinates = function () {
   return {
     X: getCoordinate(X_COORDINATE_MIN, X_COORDINATE_MAX, COORDINATE_DIGITS),
     Y: getCoordinate(Y_COORDINATE_MIN, Y_COORDINATE_MAX, COORDINATE_DIGITS),
+  };
+};
+
+const getNewUniqueArray = function (arr, length) {
+  const newArray = [];
+  for (let i = 0; i <= length; i++) {
+    newArray.push(getRandomArrayElement(arr));
   }
-}
+  let newUniqueArray = new Set(newArray);
+  return newUniqueArray;
+};
 
 // Создаем объект
 const createAdd = function () {
+  const location = getCoordinates();
+  const featuresLength = getRandomInteger(0, FEATURES.length);
+  const photosLength = getRandomInteger(0, PHOTOS.length);
+
   return {
     author: {
       avatar: 'img/avatars/user0' + getRandomInteger(AVATARS_MIN, AVATARS_MAX) + '.png',
     },
     offer: {
       title: getRandomArrayElement(TITLES),
-      address: '',
+      address: `location.${location.X}, location.${location.Y}`,
       price: getRandomInteger(MIN_PRICE, MAX_PRICE),
       type: getRandomArrayElement(TYPES),
       rooms: getRandomInteger(MIN_ROOMS, MAX_ROOMS),
       guests: getRandomInteger(MIN_GUESTS, MAX_GUESTS),
       checkin: getRandomArrayElement(IN_OUT_TIME),
       checkout: getRandomArrayElement(IN_OUT_TIME),
-      features: getRandomArrayElement(FEATURES),
+      features: getNewUniqueArray(FEATURES, featuresLength),
       description: getRandomArrayElement(DESCRIPTIONS),
-      photos: getRandomArrayElement(PHOTOS),
+      photos: getNewUniqueArray(PHOTOS, photosLength),
     },
-    location: getCoordinates,
-  }
-}
+    location: location,
+  };
+};
 
 // Создаем массив
-const createAdds = new Array(ADDS_COUNT).fill(null).map(() => createAdd());
+const createAdds = function (length) {
+  const allAdds = [];
+  for (let i = 0; i <= length; i++) {
+    allAdds.push(createAdd());
+  }
+  return allAdds;
+}
 
-createAdds();
+createAdds(ADDS_COUNT);

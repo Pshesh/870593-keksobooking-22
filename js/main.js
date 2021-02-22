@@ -62,12 +62,7 @@ const ADDS_COUNT = 10;
 
 //Случайное число из диапазона включительно
 const getRandomNumber = function (min, max) {
-  // if (min > 0 && min < max) {
-  //   const result = Math.random() * (max - min + 1) + min;
-  //   return result > max ? max : result;
-  // }
-  // throw new Error('Firt value cannot be less than zero and bigger than first');
-  if (min < 0 && min > max) {
+  if (min < 0 || min >= max) {
     throw new Error('Firt value cannot be less than zero and bigger than first');
   }
   const result = Math.random() * (max - min + 1) + min;
